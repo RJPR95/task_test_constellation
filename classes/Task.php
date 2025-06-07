@@ -76,11 +76,21 @@ class Task {
 
     /**
      * Gets the how many days are left until the task's due date.
+     * If the due date is in the past, it returns a negative number.
+     * If the due date is today, it returns 0.
+     * If the due date is in the future, it returns a positive number.
      * 
      * @return int The number of days left until the due date.
      */
     public function getDaysLeft(): int{
-        return (new DateTime())->diff($this->getDueDate())->days;
+        $interval = (new DateTime())->diff($this->getDueDate());
+        $daysLeft = $interval->days;
+
+        // If the interval's invert property is true, it means the due date is in the past.
+        if ($interval->invert) {
+            $daysLeft = -$daysLeft;
+        }
+        return $daysLeft;
     }
 
     /**

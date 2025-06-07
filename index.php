@@ -55,8 +55,8 @@
                                 <td><?=htmlspecialchars($task?->getTitle())?></td>
                                 <td><?=htmlspecialchars($task?->getDescription())?></td>
                                 <td><?=$task?->getDueDate()->format('d/m/Y H:i:s')?></td>
-                                <td class="<?= $task?->getDaysLeft() <= 0 ? 'overdue' : '' ?>">
-                                    <?= $task?->getDaysLeft() > 0 ? $task?->getDaysLeft() : "Overdue" ?>
+                                <td class="<?= $task?->getDaysLeft() < 0 ? 'overdue' : '' ?>">
+                                    <?= $task?->getDaysLeft() >= 0 ? $task?->getDaysLeft() : "Overdue" ?>
                                 </td>
                                 <td class="actions">
                                     <form action="./controllers/TasksRequestsController.php" method="post">
