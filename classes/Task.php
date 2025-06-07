@@ -2,11 +2,17 @@
 
 /**
  * Class that describes a task.
+ * This class encapsulates the properties and methods related to a task,
+ * including its title, description, due date, and status (done or not).
+ * It provides methods to get task details, set its status, and calculate days left until the due date.
+ * 
+ * @author Raúl Ribeiro
+ * @version 1.0
+ * @date 07/06/2025
  */
 
 class Task {
     private int $id = -1;
-    private string $setDate;
     private bool $done = false;
 
     /**
@@ -23,34 +29,74 @@ class Task {
         }
     }
 
+    /**
+     * Sets the ID of the task.
+     *
+     * @param int $id The ID to set for the task.
+     */
     public function setId(int $id): void {
         $this->id = $id;
     }
 
+    /**
+     * Gets the ID of the task.
+     *
+     * @return int The ID of the task.
+     */
     public function getId(): int {
         return $this->id;
     }
 
+    /**
+     * Gets the title of the task.
+     * 
+     * @return string The title of the task.
+     */
     public function getTitle(): string{
         return $this->title;
     }
 
+    /**
+     * Gets the description of the task.
+     * 
+     * @return string The description of the task.
+     */
     public function getDescription(): string{
         return $this->description;
     }
 
+    /**
+     * Gets the due date of the task.
+     * 
+     * @return DateTime The due date of the task as a DateTime object.
+     */
     public function getDueDate(): DateTime{
         return new DateTime($this->dueDate);
     }
 
+    /**
+     * Gets the how many days are left until the task's due date.
+     * 
+     * @return int The number of days left until the due date.
+     */
     public function getDaysLeft(): int{
         return (new DateTime())->diff($this->getDueDate())->days;
     }
 
+    /**
+     * Sets the status of the task as done or not done.
+     *
+     * @param bool $isDone The status to set for the task.
+     */
     public function setIsDone(bool $isDone): void {
         $this->done = $isDone;
     }
 
+    /**
+     * Checks if the task is done.
+     * 
+     * @return bool Returns true if the task is done, false otherwise.
+     */
     public function isTaskDone(): bool{
         return $this->done;
     }

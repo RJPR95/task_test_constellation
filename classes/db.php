@@ -3,6 +3,10 @@
 /**
  * Database connection script.
  * This script establishes a connection to the MySQL database using PDO.
+ * 
+ * @author Raúl Ribeiro
+ * @version 1.0
+ * @date 07/06/2025
  */
 
     // Set the database connection parameters
@@ -15,8 +19,6 @@
     // Data Source Name (DSN)
     $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 
-    // Create a PDO instance
-    // Use try-catch to handle connection errors
     try {
         // Create a new PDO instance with the specified DSN and credentials
         // Set options for error handling, fetch mode, and prepared statements

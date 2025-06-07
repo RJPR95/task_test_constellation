@@ -1,0 +1,127 @@
+body{
+    margin: 0;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+    .header{
+        padding: 20px;
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #333;
+        background-color: #f8f9fa;
+
+        h1{
+            font-size: 20px;
+        }
+
+        h2{
+            font-size: 16px;
+        }
+    }
+
+    .container{
+        padding: 0 20px;
+
+        table{
+            thead{
+                tr{
+                    background-color: #ebebeb;
+                    
+                    th{
+                        padding: 10px;
+                        text-align: left;
+                        font-weight: bold;
+                        border-bottom: 2px solid #ddd;
+                    }
+                }
+            }
+
+            tbody{
+                tr{
+                    &:nth-child(odd){
+                        background-color: #f9f9f9;
+                    }
+
+                    &:hover{
+                        background-color: #f1f1f1;
+                    }
+
+                    &.done{
+                        background-color: #d4edda;
+                    }
+
+                    td{
+                        padding: 10px;
+
+                        &.overdue{
+                            color: #dc3545;
+                            font-weight: bold;
+                        }
+
+                        &.actions{
+                            text-align: center;
+
+                            form{
+                                margin: 0;
+                            }
+
+                            input{
+                                height: 24px;
+                                width: 24px;
+                                font-size: 14px;
+                                line-height: 14px;
+                                color: white;
+                                background-color: #79b6f7;
+                                border: none;
+                                border-radius: 4px;
+                                cursor: pointer;
+
+                                &.done{
+                                    background-color: #007bff;
+                                }
+
+                                &.delete{
+                                    background-color: #dc3545;
+                                    color: white;
+
+                                    &:hover{
+                                        background-color: #a01b28;
+                                    }
+                                }
+
+                                &.not-done{
+                                    &:hover{
+                                        background-color: #007bff;
+                                    }
+                                }
+
+                                &.submit{
+                                    padding: 0 10px;
+                                    width: auto;
+
+                                    &:hover{
+                                        background-color: #007bff;
+                                    }
+                                }
+                            }
+                        }
+
+                        &.field{
+                            input{
+                                width: 100%;
+                                padding: 8px;
+                                border: 1px solid #ccc;
+                                border-radius: 4px;
+                                font-size: 14px;
+
+                                &:focus{
+                                    border-color: #007bff;
+                                    outline: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

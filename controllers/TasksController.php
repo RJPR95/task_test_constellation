@@ -1,13 +1,18 @@
 <?php
+/**
+ * TasksController class
+ * This class handles operations related to tasks, such as retrieving, adding, marking as done, and deleting tasks.
+ * It interacts with the database using PDO and manages Task objects.
+ * 
+ * @author Raúl Ribeiro
+ * @version 1.0
+ * @date 07/06/2025
+ */
 
 // Get the database connection
 require_once(__DIR__ . '/../classes/db.php');
 require_once(__DIR__ . '/../classes/Task.php');
 
-/**
- * Class TasksController
- * This class handles the task-related operations such as creating, updating, and deleting tasks.
- */
 class TasksController {
     private PDO $pdo;
 
@@ -16,7 +21,7 @@ class TasksController {
      * Initializes the PDO instance for database operations.
      */
     public function __construct() {
-        global $pdo; // Use the global PDO instance
+        global $pdo; 
         $this->pdo = $pdo;
     }
 
@@ -31,8 +36,8 @@ class TasksController {
             $tasks = [];
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $newTask = new Task($row['Title'], $row['Description'], (string)$row['Due_Date']);
-                $newTask->setId((int)$row['ID']);
-                $newTask->setIsDone((int)$row['Done']);
+                $newTask?->setId((int)$row['ID']);
+                $newTask?->setIsDone((int)$row['Done']);
                 $tasks[] = $newTask;
             }
             return $tasks;
@@ -50,19 +55,17 @@ class TasksController {
      */
     public function addTask(Task $task): bool {
         try {
-            $stmt = $this->pdo->prepare("INSERT INTO tasks (title, description, due_date, set_date) VALUES (?, ?, ?, ?)");
+            $stmt = $this->pdo->prepare("INSERT INTO tasks (title, description, due_date, set_date) VALUES (?, ?, ?, NOW())");
             return $stmt->execute([
                 $task?->getTitle(),
                 $task?->getDescription(),
-                $task?->getDueDate()?->format('Y-m-d H:i:s'),
-                date('Y-m-d H:i:s')
+                $task?->getDueDate()?->format('Y-m-d H:i:s')
             ]);
         } catch (PDOException $e) {
-            echo "Error creating task: " . $e->getMessage();
             error_log("Error creating task: " . $e->getMessage());
             return false;
         } finally {
-            header('Location: ../index.php'); // Redirect to the main page after adding a task
+            header('Location: ../index.php'); 
             exit();
         }
     }
@@ -82,7 +85,7 @@ class TasksController {
             error_log("Error marking task as done: " . $e->getMessage());
             return false;
         } finally {
-            header('Location: ../index.php'); // Redirect to the main page after marking a task as done
+            header('Location: ../index.php'); 
             exit();
         }
     }
@@ -100,13 +103,13 @@ class TasksController {
                 return $task;
             }
         }
-        return null; // Return null if the task is not found
+        return null;
     }
 
     /**
      * Deletes a task from the database.
      *
-     * @param Task $task The task object to be deleted.
+     * @param int $id The ID of the task to be deleted.
      * @return bool Returns true on success, false on failure.
      */
     public function deleteTask(int $id): bool {
@@ -117,7 +120,7 @@ class TasksController {
             error_log("Error deleting task: " . $e->getMessage());
             return false;
         } finally {
-            header('Location: ../index.php'); // Redirect to the main page after adding a task
+            header('Location: ../index.php');
             exit();
         }
     }
